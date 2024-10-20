@@ -4,9 +4,6 @@ import { createSHA256 } from '../../../helpers/crypto.js';
 
 const { prop, modelOptions } = typegoose;
 
-export interface UserEntity extends defaultClasses.Base {
-}
-
 @modelOptions({
   schemaOptions: {
     collection: 'users'

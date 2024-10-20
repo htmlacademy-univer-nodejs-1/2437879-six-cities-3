@@ -9,8 +9,6 @@ import { Coordinates } from '../../../types/coordinates.type.js';
 
 const {prop, modelOptions} = typegoose;
 
-export interface OfferEntity extends defaultClasses.Base {
-}
 @modelOptions({
   schemaOptions: {
     collection: 'offers'
@@ -23,7 +21,7 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
       minlength: [10, 'Min length for name is 10'],
       maxlength: [100, 'Min length for name is 100']
     })
-    public name!: string;
+  public name!: string;
 
     @prop({
       required: true,
