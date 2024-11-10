@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
-import { LoggerInterface } from '../shared/libs/logger/logger.interface.js';
-import { ConfigInterface } from '../shared/libs/config/config.interface.js';
-import { RestSchema } from '../shared/libs/config/rest.schema.js';
+import { LoggerInterface } from '../shared/modules/logger/logger.interface.js';
+import { ConfigInterface } from '../shared/modules/config/config.interface.js';
+import { RestSchema } from '../shared/modules/config/rest.schema.js';
 import { AppComponent } from '../types/app-component.enum.js';
 import { getMongoURI } from '../helpers/db.js';
-import { DatabaseClientInterface } from '../shared/libs/database-client/database-client.interface.js';
+import { DatabaseClientInterface } from '../shared/modules/database-client/database-client.interface.js';
 
 @injectable()
 export default class Application {

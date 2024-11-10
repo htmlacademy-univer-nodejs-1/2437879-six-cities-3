@@ -76,14 +76,14 @@ paths:
   /comments?count=50:
     get:
       tags:
-        - comments
+        - comment
       summary: Список комментариев для объявления
       responses:
         200:
           description: Список комментариев для объявления успешно получен
     post:
       tags:
-        - comments
+        - comment
       summary: Добавление комментария
       responses:
         201:
@@ -189,7 +189,7 @@ tags:
     description: Действия с пользователями
   - name: offers
     description: Действия с объявлениями
-  - name: comments
+  - name: comment
     description: Действия с комментариями
 
 components:
@@ -200,18 +200,23 @@ components:
         email:
           type: string
           example: "keks@htmlacademy.ru"
+
         name:
           type: string
           example: 'Иван Котельников'
+
         password:
           type: string
           example: "123456"
+
         avatar?:
           type: string
           example: 'studio-01.jpg'
+          
         userType:
           type: string
           example: 'pro'
+
     user:
       type: object
       properties:
@@ -221,64 +226,83 @@ components:
         email:
           type: string
           example: 'keks@htmlacademy.ru'
+
     createOffers:
       type: object
       properties:
         name:
           type: string
           example:  "Просто лучшее"
+
         description:
           type: string
           example: "Красивое, хорошее"
+
         createdDate:
           type: string
           example: '2024.05.13'
+
         city:
           type: string
           example: 'Amsterdam'
+
         previewImg:
           type: string
           example: "studio-photos.jpg"
+
         images:
           type: string
           example: [ "apartment-01.jpg;","apartment-02.jpg;" ]
+
         isPremium:
           type: boolean
+
         isFavourites:
           type: boolean
+
         rating:
           type: number
           example: 5
+
         livingPlace:
           type: string
           example: 'House'
+
         roomsCount:
           type: number
           example: 3
+
         peopleCount:
           type: number
           example: 2
+
         price:
           type: number
           example: 60000
+
         options:
           type: string
           example: 'Breakfast'
+
         author:
           type: string
           example: "Иван Котельников"
+
         commentsCount:
           type: number
           example: 1
+
         coordinates:
           type: string
           example: '48.85661,2.351499'
+
     createComments:
       type: object
       properties:
         text:
           type: string
           example: "Красивое"
+
         author:
           type: string
           example: 'Ксения Котельникова'

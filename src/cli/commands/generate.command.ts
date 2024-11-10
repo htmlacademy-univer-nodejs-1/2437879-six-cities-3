@@ -1,8 +1,8 @@
 import { Command } from './command.interface.js';
 import { MockServerData } from '../../shared/types/mock-server-data.type.js';
 import got from 'got';
-import TSVOfferGenerator from '../../shared/libs/offer-generator/tsv-offer-generator.js';
-import TsvFileWriter from '../../shared/libs/file-writer/tsv-file-writer.js';
+import TSVOfferGenerator from '../../shared/modules/offer-generator/tsv-offer-generator.js';
+import TsvFileWriter from '../../shared/modules/file-writer/tsv-file-writer.js';
 
 export class GenerateCommand implements Command {
   private initialData!: MockServerData;
