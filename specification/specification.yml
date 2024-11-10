@@ -53,8 +53,14 @@ paths:
           description: Не авторизованный пользователь
       description: Удаление существующего объявления
 
-  /offers?requestsCount=60:
     get:
+      parameters:
+        - name: requestsCount
+          in: query
+          description: Количество запрашиваемых предложений (Опционально)
+          required: false
+          schema:
+            type: integer
       tags:
         - offers
       summary: Список предложений по аренде
@@ -240,6 +246,7 @@ components:
 
         createdDate:
           type: string
+          format: date
           example: '2024.05.13'
 
         city:
@@ -251,7 +258,9 @@ components:
           example: "studio-photos.jpg"
 
         images:
-          type: string
+          type: array
+          items: 
+            type: string
           example: [ "apartment-01.jpg;","apartment-02.jpg;" ]
 
         isPremium:
