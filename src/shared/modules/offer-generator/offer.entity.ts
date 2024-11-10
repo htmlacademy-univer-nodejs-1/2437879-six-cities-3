@@ -7,7 +7,7 @@ import { UserEntity } from '../user/user.entity.js';
 import { User } from '../../../types/user.type.js';
 import { Coordinates } from '../../../types/coordinates.type.js';
 
-const {prop, modelOptions} = typegoose;
+const { prop, modelOptions } = typegoose;
 
 @modelOptions({
   schemaOptions: {

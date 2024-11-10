@@ -1,17 +1,17 @@
 import { Command } from './command.interface.js';
-import { TSVFileReader } from '../../shared/libs/file-reader/index.js';
+import { TSVFileReader } from '../../shared/modules/file-reader/index.js';
 import { createOffer } from '../../helpers/offers.js';
 import chalk from 'chalk';
-import ConsoleLoggerService from '../../shared/libs/logger/console.service.js';
-import OfferService from '../../shared/libs/offer-generator/offer.service.js';
-import UserService from '../../shared/libs/user/user.service.js';
-import MongoClientService from '../../shared/libs/database-client/mongo-client.service.js';
-import { OfferModel } from '../../shared/libs/offer-generator/offer.entity.js';
-import { UserModel } from '../../shared/libs/user/user.entity.js';
-import { DatabaseClientInterface } from '../../shared/libs/database-client/database-client.interface.js';
-import { LoggerInterface } from '../../shared/libs/logger/logger.interface.js';
-import { OfferServiceInterface } from '../../shared/libs/offer-generator/offer-service.interface.js';
-import { UserServiceInterface } from '../../shared/libs/user/user-service.interface.js';
+import ConsoleLoggerService from '../../shared/modules/logger/console.service.js';
+import OfferService from '../../shared/modules/offer-generator/offer.service.js';
+import UserService from '../../shared/modules/user/user.service.js';
+import MongoClientService from '../../shared/modules/database-client/mongo-client.service.js';
+import { OfferModel } from '../../shared/modules/offer-generator/offer.entity.js';
+import { UserModel } from '../../shared/modules/user/user.entity.js';
+import { DatabaseClientInterface } from '../../shared/modules/database-client/database-client.interface.js';
+import { LoggerInterface } from '../../shared/modules/logger/logger.interface.js';
+import { OfferServiceInterface } from '../../shared/modules/offer-generator/offer-service.interface.js';
+import { UserServiceInterface } from '../../shared/modules/user/user-service.interface.js';
 import { Offer } from '../../types/offer.type.js';
 import { getMongoURI } from '../../helpers/db.js';
 
