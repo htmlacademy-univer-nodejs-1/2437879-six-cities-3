@@ -64,6 +64,11 @@ export default class Application {
 
     this.server.use(express.json());
 
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
+
     this.logger.info('Middleware init completed');
   }
 
