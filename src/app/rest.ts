@@ -8,6 +8,7 @@ import { DatabaseClientInterface } from '../shared/modules/database-client/datab
 import express, { Express } from 'express';
 import { ExceptionFilterInterface } from '../shared/modules/exception-filters/exception-filter.interface.js';
 import { BaseController } from '../shared/modules/controller/base-controller.js';
+import { AuthenticateMiddleware } from '../shared/modules/middleware/authenticate.middleware.js';
 
 @injectable()
 export default class Application {
@@ -68,6 +69,9 @@ export default class Application {
       '/upload',
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
+
+    const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
+    this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
 
     this.logger.info('Middleware init completed');
   }
