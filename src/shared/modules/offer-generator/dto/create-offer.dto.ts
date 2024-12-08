@@ -2,7 +2,7 @@ import {
   IsArray,
   IsBoolean,
   IsDateString,
-  IsInt, IsMongoId,
+  IsInt,
   IsNumber,
   IsObject,
   IsString, Length,
@@ -12,7 +12,6 @@ import {
 import { CityType } from '../../../../types/city.type.js';
 import { LivingPlaceType } from '../../../../types/living-place.type.js';
 import { OptionsType } from '../../../../types/options.type.js';
-import { User } from '../../../../types/user.type.js';
 import { Coordinates } from '../../../../types/coordinates.type.js';
 import { CreateOfferValidationMessage } from './create-offer-messages.dto.js';
 
@@ -69,11 +68,10 @@ export default class CreateOfferDto {
   @IsString({message: CreateOfferValidationMessage.options.invalidFormat})
     options!: OptionsType;
 
-  @IsMongoId({ message: CreateOfferValidationMessage.author.invalidId })
-    author!: User;
+  userId!: string;
 
   commentsCount!: number;
 
-  @IsObject({message:CreateOfferValidationMessage.coordinates.invalidFormat})
+  @IsObject({message: CreateOfferValidationMessage.coordinates.invalidFormat})
     coordinates!: Coordinates;
 }
