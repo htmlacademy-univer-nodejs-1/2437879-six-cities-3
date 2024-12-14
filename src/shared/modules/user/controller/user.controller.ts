@@ -71,8 +71,8 @@ export class UserController extends BaseController {
   }
 
   public async login(
-    { body }:Request<UnknownRecord, UnknownRecord, LoginUserDto>,
-    _res: Response,
+    { body }: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
+    res: Response,
   ): Promise<void> {
     const user = await this
       .userService
@@ -95,7 +95,7 @@ export class UserController extends BaseController {
       }
     );
 
-    this.ok(_res, fillDTO(LoggedUserRdo, {
+    this.ok(res, fillDTO(LoggedUserRdo, {
       email: user.email,
       token
     }));

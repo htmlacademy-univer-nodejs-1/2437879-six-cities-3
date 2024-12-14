@@ -1,10 +1,8 @@
-import typegoose, { defaultClasses, getModelForClass } from '@typegoose/typegoose';
-import { Offer } from '../../../types/offer.type.js';
+import typegoose, { defaultClasses, getModelForClass, Ref } from '@typegoose/typegoose';
 import { CityType } from '../../../types/city.type.js';
 import { LivingPlaceType } from '../../../types/living-place.type.js';
 import { OptionsType } from '../../../types/options.type.js';
 import { UserEntity } from '../user/user.entity.js';
-import { User } from '../../../types/user.type.js';
 import { Coordinates } from '../../../types/coordinates.type.js';
 
 const { prop, modelOptions } = typegoose;
@@ -15,7 +13,7 @@ const { prop, modelOptions } = typegoose;
   }
 })
 
-export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
+export class OfferEntity extends defaultClasses.TimeStamps {
     @prop({
       required: true,
       minlength: [10, 'Min length for name is 10'],
@@ -93,7 +91,7 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
       required: true,
       ref: UserEntity,
     })
-    public author!: User;
+    public userId!: Ref<UserEntity>;
 
     @prop({default: 0})
     public commentsCount!: number;

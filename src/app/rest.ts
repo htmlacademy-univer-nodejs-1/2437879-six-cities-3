@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { inject, injectable } from 'inversify';
 import { LoggerInterface } from '../shared/modules/logger/logger.interface.js';
 import { ConfigInterface } from '../shared/modules/config/config.interface.js';
@@ -17,10 +18,12 @@ export default class Application {
   constructor(@inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
               @inject(AppComponent.ConfigInterface) private readonly config: ConfigInterface<RestSchema>,
               @inject(AppComponent.DatabaseClientInterface) private readonly databaseClient: DatabaseClientInterface,
-              @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
               @inject(AppComponent.UserController) private readonly userController: BaseController,
               @inject(AppComponent.OfferController) private readonly offerController: BaseController,
               @inject(AppComponent.CommentController) private readonly commentController: BaseController,
+              @inject(AppComponent.HttpErrorExceptionFilter) private readonly httpErrorExceptionFilter: ExceptionFilterInterface,
+              @inject(AppComponent.BaseExceptionFilter) private readonly baseExceptionFilter: ExceptionFilterInterface,
+              @inject(AppComponent.ValidationExceptionFilter) private readonly validationExceptionFilter: ExceptionFilterInterface,
   ) {
     this.server = express();
   }
@@ -73,13 +76,17 @@ export default class Application {
     const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
 
+    this.server.use(cors());
+
     this.logger.info('Middleware init completed');
   }
 
   private async _initExceptionFilters() {
     this.logger.info('Init exception filters...');
 
-    this.server.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
+    this.server.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.server.use(this.httpErrorExceptionFilter.catch.bind(this.httpErrorExceptionFilter));
+    this.server.use(this.baseExceptionFilter.catch.bind(this.baseExceptionFilter));
 
     this.logger.info('Exception filters completed');
   }
