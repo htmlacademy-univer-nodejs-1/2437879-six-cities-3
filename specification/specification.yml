@@ -79,7 +79,7 @@ paths:
         200:
           description: Детальная информация по предложению успешно получена
 
-  /comments?count=50:
+  /offers/{offerId}/comments?count=50:
     get:
       tags:
         - comment
@@ -87,6 +87,7 @@ paths:
       responses:
         200:
           description: Список комментариев для объявления успешно получен
+
     post:
       tags:
         - comment
@@ -130,6 +131,7 @@ paths:
           description: Успешная авторизация
         400:
           description: Некорректная валидация
+
     get:
       tags:
         - users
@@ -152,7 +154,7 @@ paths:
         401:
           description: Не авторизованный пользователь
 
-  /offers/premium:
+  /offers/premium/{city}:
     get:
       tags:
         - offers
@@ -161,7 +163,7 @@ paths:
         200:
           description: Возвращает не больше 3 предложений с флагом «Premium»
 
-  /offers/favorite:
+  /offers/users/favorite:
     get:
       tags:
         - offers
@@ -171,6 +173,8 @@ paths:
           description: Возвращает список избранных предложений
         401:
           description: Не авторизованный пользователь
+
+  /offers/{offerId}/favorite:
     post:
       tags:
         - offers
@@ -180,6 +184,7 @@ paths:
           description: Добавление прошло успешно
         401:
           description: Не авторизованный пользователь
+
     delete:
       tags:
         - offers
@@ -247,7 +252,7 @@ components:
         createdDate:
           type: string
           format: date
-          example: '2024.05.13'
+          example: 2024-12-21T18:35:00.000Z
 
         city:
           type: string
@@ -302,8 +307,11 @@ components:
           example: 1
 
         coordinates:
-          type: string
-          example: '48.85661,2.351499'
+          type: array
+          items:
+              type: number
+              format: float
+          example: [48.85661, 2.351499]
 
     createComments:
       type: object

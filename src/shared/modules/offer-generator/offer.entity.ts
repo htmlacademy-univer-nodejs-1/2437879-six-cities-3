@@ -3,7 +3,6 @@ import { CityType } from '../../../types/city.type.js';
 import { LivingPlaceType } from '../../../types/living-place.type.js';
 import { OptionsType } from '../../../types/options.type.js';
 import { UserEntity } from '../user/user.entity.js';
-import { Coordinates } from '../../../types/coordinates.type.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -102,7 +101,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     })
 
     @prop({required: true})
-    public coordinates!: Coordinates;
+    public coordinates!: number[];
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

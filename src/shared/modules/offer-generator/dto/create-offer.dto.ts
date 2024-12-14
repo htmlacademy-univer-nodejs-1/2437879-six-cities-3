@@ -4,15 +4,13 @@ import {
   IsDateString,
   IsInt,
   IsNumber,
-  IsObject,
-  IsString, Length,
+  IsString,
   MaxLength,
   MinLength
 } from 'class-validator';
 import { CityType } from '../../../../types/city.type.js';
 import { LivingPlaceType } from '../../../../types/living-place.type.js';
 import { OptionsType } from '../../../../types/options.type.js';
-import { Coordinates } from '../../../../types/coordinates.type.js';
 import { CreateOfferValidationMessage } from './create-offer-messages.dto.js';
 
 export default class CreateOfferDto {
@@ -43,7 +41,6 @@ export default class CreateOfferDto {
   public isFavourites!: boolean;
 
   @IsNumber({}, {message: CreateOfferValidationMessage.rating.invalidFormat})
-  @Length(1, 5, {message: CreateOfferValidationMessage.rating.lengthField})
   public rating!: 1 | 1.1 | 1.2 | 1.3 | 1.4 | 1.5 | 1.6 | 1.7 | 1.8 | 1.9 |
     2 | 2.1 | 2.2 | 2.3 | 2.4 | 2.5 | 2.6 | 2.7 | 2.8 | 2.9 |
     3 | 3.1 | 3.2 | 3.3 | 3.4 | 3.5 | 3.6 | 3.7 | 3.8 | 3.9 |
@@ -54,15 +51,12 @@ export default class CreateOfferDto {
   public livingPlace!: LivingPlaceType;
 
   @IsInt({message: CreateOfferValidationMessage.roomsCount.invalidFormat})
-  @Length(1, 8, {message: CreateOfferValidationMessage.roomsCount.lengthField})
   public roomsCount!: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
   @IsInt({message: CreateOfferValidationMessage.peopleCount.invalidFormat})
-  @Length(1, 10, {message: CreateOfferValidationMessage.peopleCount.lengthField})
   public peopleCount!: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
   @IsNumber({}, {message: CreateOfferValidationMessage.price.invalidFormat})
-  @Length(100, 100000, {message: CreateOfferValidationMessage.price.lengthField})
   public price!: number;
 
   @IsString({message: CreateOfferValidationMessage.options.invalidFormat})
@@ -72,6 +66,6 @@ export default class CreateOfferDto {
 
   public commentsCount!: number;
 
-  @IsObject({message: CreateOfferValidationMessage.coordinates.invalidFormat})
-  public coordinates!: Coordinates;
+  @IsArray({message: CreateOfferValidationMessage.coordinates.invalidFormat})
+  public coordinates!: number[];
 }

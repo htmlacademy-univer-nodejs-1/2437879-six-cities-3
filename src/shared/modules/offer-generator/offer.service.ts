@@ -6,7 +6,7 @@ import { OfferServiceInterface } from './offer-service.interface.js';
 import { LoggerInterface } from '../logger/logger.interface.js';
 import { AppComponent } from '../../../types/app-component.enum.js';
 import UpdateOfferDto from './dto/update-offer.dto.js';
-import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
+import { DEFAULT_OFFER_COUNT, DEFAULT_PREMIUM_OFFERS_COUNT } from './offer.constant.js';
 import { SortType } from '../../../types/sort.type.js';
 
 @injectable()
@@ -24,7 +24,7 @@ export default class OfferService implements OfferServiceInterface {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).populate('offerId').exec();
+    return this.offerModel.findById(offerId).populate('userId').exec();
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
@@ -33,7 +33,7 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .sort({createdAt: SortType.Down})
       .limit(limitCount)
-      .populate('offerId')
+      .populate('userId')
       .exec();
   }
 
@@ -42,7 +42,7 @@ export default class OfferService implements OfferServiceInterface {
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findByIdAndUpdate(offerId, dto, {new: true}).populate('offerId').exec();
+    return this.offerModel.findByIdAndUpdate(offerId, dto, {new: true}).populate('userId').exec();
   }
 
   public async getDetailsInfo(offerId: string): Promise<DocumentType<OfferEntity> | null> {
@@ -59,7 +59,7 @@ export default class OfferService implements OfferServiceInterface {
   }
 
   public async getPremium(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find({flagIsPremium: true}).populate('offerId').exec();
+    return this.offerModel.find({flagIsPremium: true}).populate('userId').exec();
   }
 
   public async getFavorite(): Promise<DocumentType<OfferEntity>[]> {
@@ -73,5 +73,28 @@ export default class OfferService implements OfferServiceInterface {
   public async exists(documentId: string): Promise<boolean> {
     return (await this.offerModel
       .exists({_id: documentId})) !== null;
+  }
+
+  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
+    return this.offerModel
+      .find({city: city, premium: true})
+      .sort({createdAt: SortType.Down})
+      .limit(DEFAULT_PREMIUM_OFFERS_COUNT)
+      .populate('userId')
+      .exec();
+  }
+
+  public async addFavorite(offerId: string, userId: string): Promise<void> {
+    await this.offerModel.updateOne(
+      {_id: userId},
+      { $addToSet: { favorites: offerId } }
+    );
+  }
+
+  public async deleteFavorite(offerId: string, userId: string): Promise<void> {
+    await this.offerModel.updateOne(
+      {_id: userId},
+      { $pull: { favorites: offerId } }
+    );
   }
 }

@@ -6,7 +6,6 @@ import { LoggerInterface } from '../../logger/logger.interface.js';
 import { HttpMethod } from '../../../types/http-method.enum.js';
 import CreateUserDto from '../dto/create-user.dto.js';
 import { RestSchema } from '../../config/rest.schema.js';
-import { Config } from 'convict';
 import UserService from '../user.service.js';
 import { HttpError } from '../../errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
@@ -19,15 +18,17 @@ import LoggedUserRdo from '../rdo/logged-user.rdo.js';
 import { JWT_ALGORITHM } from '../user.constant.js';
 import { createJWT } from '../../../../helpers/crypto.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
+import { ConfigInterface } from '../../config/config.interface.js';
+import UploadAvatarResponse from '../rdo/upload-avatar.response.js';
 
 @injectable()
 export class UserController extends BaseController {
   constructor(
     @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
     @inject(AppComponent.UserServiceInterface) private readonly userService: UserService,
-    @inject(AppComponent.ConfigInterface) private readonly configService: Config<RestSchema>,
+    @inject(AppComponent.ConfigInterface) protected readonly configService: ConfigInterface<RestSchema>
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info('Register routes for UserController...');
 
@@ -95,16 +96,19 @@ export class UserController extends BaseController {
       }
     );
 
-    this.ok(res, fillDTO(LoggedUserRdo, {
-      email: user.email,
+    this.ok(res, {
+      ...fillDTO(LoggedUserRdo, user),
       token
-    }));
+    });
   }
 
   public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+    const {userId} = req.params;
+    const uploadFile = {avatar: req.file?.filename};
+
+    await this.userService.updateById(userId, uploadFile);
+
+    this.created(res, fillDTO(UploadAvatarResponse, uploadFile));
   }
 
   public async checkAuthenticate(req: Request, res: Response) {

@@ -20,11 +20,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({required: true})
   public name: string;
 
-  @prop({required: false, default: 'avatar-max.jpg'})
+  @prop({required: false, default: 'default-avatar.jpg'})
   public avatarPath?: string;
 
   @prop({required: true, default: ''})
-  public password!: string;
+  public password?: string;
 
   constructor(userData: User) {
     super();
@@ -52,7 +52,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({required: true, enum: UserTypeEnum})
   public userType: UserTypeEnum;
 
-  @prop({ required: true, ref: 'OfferEntity', default: [] })
+  @prop({required: true, ref: 'OfferEntity', default: []})
   public favoriteOffers!: Ref<OfferEntity>[];
 }
 

@@ -3,7 +3,6 @@ import { CityType } from '../types/city.type.js';
 import { LivingPlaceType } from '../types/living-place.type.js';
 import { OptionsType } from '../types/options.type.js';
 import { User } from '../types/user.type.js';
-import { Coordinates } from '../types/coordinates.type.js';
 
 export function createOffer(offerData: string): Offer {
   const [
@@ -35,6 +34,6 @@ export function createOffer(offerData: string): Offer {
     options: optionsType as OptionsType,
     author: author as unknown as User,
     commentsCount: Number.parseInt(commentsCount, 10),
-    coordinates: coordinates.split(',') as unknown as Coordinates
+    coordinates: coordinates.split(',') as unknown as number[],
   } as Offer;
 }
