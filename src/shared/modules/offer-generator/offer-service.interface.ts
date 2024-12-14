@@ -26,4 +26,10 @@ export interface OfferServiceInterface extends DocumentExists {
     calculationRating(rating: number, newRating: number, countRating:number, offerId:string): Promise<void>;
 
     exists(documentId: string): Promise<boolean>;
+
+    findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]>;
+
+    addFavorite(offerId: string, userId: string): Promise<void>;
+
+    deleteFavorite(offerId: string, userId: string): Promise<void>;
 }

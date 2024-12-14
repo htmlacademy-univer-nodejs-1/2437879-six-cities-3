@@ -1,21 +1,22 @@
 # Пользователи
 ## Создать нового пользователя
 
-POST http://localhost:3123/users HTTP/1.1
+POST http://localhost:27018/users/register HTTP/1.1
 Content-Type: application/json
 
 {
   "email": "kotelnikova@tinkoff.com",
   "avatar": "kot.png",
   "name": "Kseniya Kotelnikova",
-  "password": "koshka"
+  "password": "koshka",
+  "userType": "pro"
 }
 
 ###
 
 ## Авторизовать пользователя
 
-POST http://localhost:3123/users/login HTTP/1.1
+POST http://localhost:27018/users/login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -27,7 +28,7 @@ Content-Type: application/json
 
 ## Проверить токен пользователя
 
-GET http://localhost:4000/users/login HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY0NzBiYzM4M2UzMGRiNjc5ZGZhYzJkMiIsImlhdCI6MTY4NTk3NTQ4MiwiZXhwIjoxNjg2MTQ4MjgyfQ.Gq2-B1egouAnMxmXlR2ElVT6wCa97PS6lxzVI8LnGvo
+GET http://localhost:27018/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtvdGVsbmlrb3ZhQHRpbmtvZmYuY29tIiwiaWQiOiI2NzVlMDJiODA3ZjdhMzJkMTIxZWIyNzEiLCJpYXQiOjE3MzQyMTQ0NDAsImV4cCI6MTczNDM4NzI0MH0.RjM4qHE43kuLsbfdvBv0Af6_1dg0JrqvEvZumhxPQGM
 
 ###

@@ -12,9 +12,8 @@ export default class CreateCommentDto {
   public userId!: string;
 
   @IsDateString({}, {message: CreateCommentMessages.date.invalidFormat})
-  public date!: Date;
+  public createdDate!: Date;
 
   @IsNumber({}, {message: CreateCommentMessages.rating.invalidFormat})
-  @Length(1, 5, {message: CreateCommentMessages.rating.lengthField})
   public rating!: number;
 }

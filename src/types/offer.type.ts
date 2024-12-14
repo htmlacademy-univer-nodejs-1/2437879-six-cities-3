@@ -2,7 +2,6 @@ import { LivingPlaceType } from './living-place.type.js';
 import { OptionsType } from './options.type.js';
 import { User } from './user.type.js';
 import { CityType } from './city.type.js';
-import { Coordinates } from './coordinates.type.js';
 
 export type Offer = {
     name: string;
@@ -25,5 +24,5 @@ export type Offer = {
     options: OptionsType;
     author: User;
     commentsCount: number;
-    coordinates: Coordinates;
+    coordinates: number[];
 }

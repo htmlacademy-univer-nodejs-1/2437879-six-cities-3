@@ -3,7 +3,6 @@ import { CityType } from '../../../../types/city.type.js';
 import { LivingPlaceType } from '../../../../types/living-place.type.js';
 import { OptionsType } from '../../../../types/options.type.js';
 import { User } from '../../../../types/user.type.js';
-import { Coordinates } from '../../../../types/coordinates.type.js';
 
 export class OfferRdo {
     @Expose()
@@ -56,5 +55,5 @@ export class OfferRdo {
     public author!: User;
 
     @Expose()
-    public coordinates!: Coordinates;
+    public coordinates!: number[];
 }
